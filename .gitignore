@@ -1,0 +1,14 @@
+# Executables
+*.exe
+*.out
+
+# Object files
+*.o
+*.obj
+
+# VS Code
+.vscode/
+
+# OS files
+Thumbs.db
+.DS_Store
