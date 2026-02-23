@@ -6,6 +6,10 @@
 *.o
 *.obj
 
+# Build outputs
+/programa
+/tests/test_kdtree
+
 # VS Code
 .vscode/
 
