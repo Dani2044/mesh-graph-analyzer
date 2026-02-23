@@ -240,6 +240,11 @@ mesh-graph-analyzer-cpp/
 ├── KDTree.h / KDTree.cpp # KD-Tree for spatial nearest-neighbor search
 ├── NodoKDTree.h / NodoKDTree.cpp # KD-Tree node
 ├── Grafo.h / Grafo.cpp   # Graph with adjacency matrix and Dijkstra implementation
+├── Makefile              # Build / test / clean targets
+├── examples/
+│   └── cubo.mesh         # Sample unit-cube mesh for a quick session
+├── tests/
+│   └── test_kdtree.cpp   # Self-contained KD-Tree + Dijkstra test harness
 ├── docs/
 │   └── images/           # Figures referenced in this README
 └── .gitignore
@@ -255,16 +260,20 @@ mesh-graph-analyzer-cpp/
 
 ### Build
 
-```bash
-git clone https://github.com/JuanR771/mesh-graph-analyzer-cpp.git
-cd mesh-graph-analyzer-cpp
-```
-
-Compile all source files:
+From the project root, build with `make`:
 
 ```bash
-g++ -std=c++11 -o programa main.cpp menuComp0.cpp menuComp1.cpp menuComp2.cpp menuComp3.cpp objeto.cpp cara.cpp vertice.cpp KDTree.cpp NodoKDTree.cpp Grafo.cpp
+make
 ```
+
+This produces the `programa` binary. To build without `make`, compile all
+source files in one step:
+
+```bash
+g++ -std=c++11 -Wall -o programa main.cpp menuComp0.cpp menuComp1.cpp menuComp2.cpp menuComp3.cpp objeto.cpp cara.cpp vertice.cpp KDTree.cpp NodoKDTree.cpp Grafo.cpp
+```
+
+Remove build artifacts with `make clean`.
 
 ### Run
 
@@ -273,6 +282,33 @@ g++ -std=c++11 -o programa main.cpp menuComp0.cpp menuComp1.cpp menuComp2.cpp me
 ```
 
 The interactive console will display a prompt. Type `ayuda` to see all available commands.
+
+### Test
+
+A self-contained test harness (plain `assert`s, no external framework) verifies
+the KD-Tree nearest-neighbour search against a brute-force scan over a synthetic
+300-point mesh, plus a Dijkstra sanity check on a unit cube:
+
+```bash
+make test
+```
+
+Expected output: `107 checks, 0 failures`.
+
+### Sample session
+
+A unit-cube mesh is provided at `examples/cubo.mesh`:
+
+```
+$ ./programa
+$ cargar examples/cubo.mesh
+(Resultado exitoso) El objeto cubo ha sido cargado exitosamente desde el archivo examples/cubo.mesh.
+$ v_cercano 0.2 0.1 0.05 cubo
+(Resultado exitoso) El vértice 0 (0, 0, 0) del objeto cubo es el más cercano al punto (0.2, 0.1, 0.05), a una distancia de 0.229129.
+$ ruta_corta 0 6 cubo
+La ruta más corta que conecta los vértices 0 y 6 del objeto cubo pasa por: 0, 1, 2, 6; con una longitud de 3.
+$ salir
+```
 
 ---
 
