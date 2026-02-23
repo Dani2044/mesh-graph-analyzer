@@ -10,7 +10,7 @@ Objeto::Objeto(const std::string& nombre) : nombre(nombre) {}
 
 // Constructor con parámetros
 Objeto::Objeto(const std::string& nombre, const std::vector<Vertice>& vertices, const std::vector<Cara>& caras)
-    : nombre(nombre), verticesTotales(vertices), caras(caras) {}
+    : nombre(nombre), caras(caras), verticesTotales(vertices) {}
 
 // Getters
 std::string Objeto::getNombre() const {
